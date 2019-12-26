@@ -43,7 +43,7 @@ function stopGame (){
 
 function updateUI () {
   // Score bar
-	document.getElementById('score').innerHTML =  'Score:' + score;
+	document.getElementById('score').innerHTML =  'Score: ' + score;
   // Food bar
   foodBar.style.width = (3*food)  + "px";
   // Water bar
