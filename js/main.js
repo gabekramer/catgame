@@ -51,15 +51,15 @@ function updateUI () {
 }
 
 function updateGame () {
-  hungerUpdate();
-  thirstUpdate();
 
   if (food<=0 || water<=0) { 
     // Cat is dead
     stopGame();
   }
-  else {
-    score = Number(score) + 1; // Still alive!
+  else { // Cat is alive! Neats food and water
+    hungerUpdate();
+    thirstUpdate();
+    score = Number(score) + 1;
   }
 
   updateUI();
