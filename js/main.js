@@ -8,44 +8,6 @@ function normalCat () {
         document.getElementById("cat").src = "images/kitty.png";
 }
 
-function slow () {
-	game = true
-        if(game = false){
-                 width = 0;
-                 width_2 = 0;
-        }
-	var score_time = 14400000;
-        var myInterval = setInterval(function (){
-                width = width - 3;
-                if(width >= 0){
-                        myBar.style.width = width  + "px";
-                }
-	
-                else{
-                        clearInterval(myInterval);
-			clearInterval(myInterval_score_time);
-			game = false;
-
-                }
-        },14400000 );
-
-
-var myInterval = setInterval(function (){
-                width_2 = width_2 - 3;
-                if(width >= 0){
-                        myBar_2.style.width = width_2  + "px";
-                }
-                else{
-                        clearInterval(myInterval);
-			clearInterval(myInterval_score_time);
-			game = false;
-
-                }
-        }, 14400000);
-}
-
-
-
 function fast() {
 	game = true
 	if(game = false){
@@ -59,10 +21,10 @@ function fast() {
 		document.getElementById('score').innerHTML =  'Score:' + score ;
 
 }, score_time)
-	var myInterval_food = setInterval(function (){
+	var hungerUpdate = setInterval(function (){
 		width = width - 3;
 		if(width >= 0){
-			myBar.style.width = width  + "px";
+			foodBar.style.width = width  + "px";
 		}
 		else{
 			clearInterval(myInterval_food);
@@ -73,18 +35,23 @@ function fast() {
 	}, 50);
 
 
-var myInterval_food2 = setInterval(function (){
-                width_2 = width_2 - 3;
-                if(width_2 >= 0){
-                        myBar_2.style.width = width_2  + "px";
-                }
-                else{
-                        clearInterval(myInterval_food2);
-			clearInterval(myInterval_score_time);
-			game = false;
-                }
-        }, 50);
+var thirdUpdate = setInterval(function (){
+  width_2 = width_2 - 3;
+  if(width_2 >= 0){
+          waterBar.style.width = width_2  + "px";
+  }
+  else{
+    clearInterval(myInterval_food2);
+    clearInterval(myInterval_score_time);
+    game = false;
+  }
+}, 50);
 
+}
+
+
+function slow() {
+  
 }
 
 function feed(){

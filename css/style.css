@@ -2,22 +2,18 @@
 .center {
         text-align: center;
 }
-#myProgress {
+#bar {
   width: 300px;
   background-color: lightgrey;
 }
 
-#myBar {
+#foodBar {
   width: 300px;
   height: 30px;
   background-color: green;
 }
-#myProgress_2 {
-  width: 300px;
-  background-color: lightgrey;
-}
 
-#myBar_2 {
+#waterBar {
   width: 300px;
   height: 30px;
   background-color: green;
