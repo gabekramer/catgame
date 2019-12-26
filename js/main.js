@@ -1,117 +1,88 @@
+var catAlive = false; // game running
+
 var score = 0;
-var score_time = 0
-var game = false;
-function normalCat () {
-        document.getElementById("cat").src = "images/kitty.png";
+var food = 100;
+var water = 100;
+
+var gameI; // The catAlive interval
+
+
+function normalCat () { // Changes cat picture back to a normal cat
+  document.getElementById("cat").src = "images/kitty.png";
 }
 
-function feed () {
-        document.getElementById("cat").src = "images/kitty_hungry.png";
-        setTimeout(normalCat, 1500);
+function giveFood(){ // Feed the cat
+  document.getElementById("cat").src = "images/kitty_hungry.png";
+  setTimeout(normalCat, 1500);
+	if(food <= 100 && food >= 0 && water >= 0){
+		food = food + 10;
+  }
 }
 
-function water () {
-        document.getElementById("cat").src = "images/kitty_drink.png";
-        setTimeout(normalCat, 1500);
+function giveWater(){ // Water the cat
+  document.getElementById("cat").src = "images/kitty_drink.png";
+  setTimeout(normalCat, 1500);
+	if(water <= 100 && water >= 0 && food >= 0){
+	  water = water + 10;
+	}
 }
 
-
-//var myBarWidth;
-//var fast = false;
-var score_time
-var width = 300;
-var width_2 = 300;
-function slow () {
-	game = true
-        if(game = false){
-                 width = 0;
-                 width_2 = 0;
-        }
-
-	var score_time = 14400000;
-        var myInterval = setInterval(function (){
-                width = width - 3;
-                if(width >= 0){
-                        myBar.style.width = width  + "px";
-                }
-	
-                else{
-                        clearInterval(myInterval);
-			clearInterval(myInterval_score_time);
-			game = false;
-
-                }
-        },14400000 );
-
-
-var myInterval = setInterval(function (){
-                width_2 = width_2 - 3;
-                if(width >= 0){
-                        myBar_2.style.width = width_2  + "px";
-                }
-                else{
-                        clearInterval(myInterval);
-			clearInterval(myInterval_score_time);
-			game = false;
-
-                }
-        }, 14400000);
-
-
-
+function startGame () {
+	catAlive = true;
+  score = 0;
+	score_time = 1000;
+	catAlive = true;
 }
 
+function stopGame (){
+  clearInterval(gameI);
+  /*clearInterval(hungerUpdate);
+  clearInterval(thirstUpdate);
+  clearInterval(myInterval_score_time);*/
+}
 
+function updateUI () {
+  // Score bar
+	document.getElementById('score').innerHTML =  'Score: ' + score;
+  // Food bar
+  foodBar.style.width = (3*food)  + "px";
+  // Water bar
+  waterBar.style.width = (3*water)  + "px";
+}
+
+function updateGame () {
+
+  if (food<=0 || water<=0) { 
+    // Cat is dead
+    stopGame();
+  }
+  else { // Cat is alive! Neats food and water
+    hungerUpdate();
+    thirstUpdate();
+    score = Number(score) + 1;
+  }
+
+  updateUI();
+}
+
+function hungerUpdate () {
+  food = food - Math.floor(Math.random() * Math.floor(2+1)); // Random hunger on int of [0, 2] (inclusive)
+}
+
+function thirstUpdate () {
+  water = water - 1;
+}
+
+//
+// catAlive modes
+//
 
 function fast() {
-	game = true
-	if(game = false){
-		width = 0;
-		width_2 = 0;
-	}
-	score_time = 1000
-	game = true
-	var myInterval_score_time = setInterval(function(){
-		 score += 1
-		document.getElementById('score').innerHTML =  'Score:' + score ;
-
-}, score_time)
-	var myInterval_food = setInterval(function (){
-		width = width - 3;
-		if(width >= 0){
-			myBar.style.width = width  + "px";
-		}
-		else{
-			clearInterval(myInterval_food);
-			clearInterval(myInterval_score_time);
-			game = false;
-
-		}
-	}, 50);
-
-
-var myInterval_food2 = setInterval(function (){
-                width_2 = width_2 - 3;
-                if(width_2 >= 0){
-                        myBar_2.style.width = width_2  + "px";
-                }
-                else{
-                        clearInterval(myInterval_food2);
-			clearInterval(myInterval_score_time);
-			game = false;
-                }
-        }, 50);
-
+  stopGame();
+  gameI = setInterval(updateGame, 50);
 }
 
-function feed(){
-	if(width <= 300 && width >= 0 && width_2 >= 0){
-
-		width = width + 30;
-}	}
-function water(){
-	if(width_2 <= 300 && width >= 0 && width_2 >= 0){
-	width_2 = width_2 + 30;
-	}
+function slow() {
+  stopGame();
+  gameI = setInterval(updateGame, 1000);
 }
-
