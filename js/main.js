@@ -1,33 +1,19 @@
 var score = 0;
 var score_time = 0
 var game = false;
+var width = 300;
+var width_2 = 300;
+
 function normalCat () {
         document.getElementById("cat").src = "images/kitty.png";
 }
 
-function feed () {
-        document.getElementById("cat").src = "images/kitty_hungry.png";
-        setTimeout(normalCat, 1500);
-}
-
-function water () {
-        document.getElementById("cat").src = "images/kitty_drink.png";
-        setTimeout(normalCat, 1500);
-}
-
-
-//var myBarWidth;
-//var fast = false;
-var score_time
-var width = 300;
-var width_2 = 300;
 function slow () {
 	game = true
         if(game = false){
                  width = 0;
                  width_2 = 0;
         }
-
 	var score_time = 14400000;
         var myInterval = setInterval(function (){
                 width = width - 3;
@@ -56,9 +42,6 @@ var myInterval = setInterval(function (){
 
                 }
         }, 14400000);
-
-
-
 }
 
 
@@ -105,13 +88,16 @@ var myInterval_food2 = setInterval(function (){
 }
 
 function feed(){
+  document.getElementById("cat").src = "images/kitty_hungry.png";
+  setTimeout(normalCat, 1500);
 	if(width <= 300 && width >= 0 && width_2 >= 0){
-
 		width = width + 30;
-}	}
+  }
+}
 function water(){
+  document.getElementById("cat").src = "images/kitty_drink.png";
+  setTimeout(normalCat, 1500);
 	if(width_2 <= 300 && width >= 0 && width_2 >= 0){
-	width_2 = width_2 + 30;
+	  width_2 = width_2 + 30;
 	}
 }
-
