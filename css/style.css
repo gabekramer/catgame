@@ -10,13 +10,13 @@
 #foodBar {
   width: 300px;
   height: 30px;
-  background-color: green;
+  background-color: red;
 }
 
 #waterBar {
   width: 300px;
   height: 30px;
-  background-color: green;
+  background-color: lightblue;
 }
 
 

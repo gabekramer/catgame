@@ -51,8 +51,6 @@ function updateUI () {
 }
 
 function updateGame () {
-  score = Number(score) + 1;
-
   hungerUpdate();
   thirstUpdate();
 
@@ -60,12 +58,15 @@ function updateGame () {
     // Cat is dead
     stopGame();
   }
+  else {
+    score = Number(score) + 1; // Still alive!
+  }
 
   updateUI();
 }
 
 function hungerUpdate () {
-  food = food - 1;
+  food = food - Math.floor(Math.random() * Math.floor(2+1)); // Random hunger on int of [0, 2] (inclusive)
 }
 
 function thirstUpdate () {
