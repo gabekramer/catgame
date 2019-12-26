@@ -1,70 +1,88 @@
 var score = 0;
-var score_time = 0
+var score_time = 0;
 var game = false;
-var width = 300;
-var width_2 = 300;
+var food = 100;
+var water = 100;
+var gameI; // The game interval
 
-function normalCat () {
+function normalCat () { // Changes cat picture back to a normal cat
         document.getElementById("cat").src = "images/kitty.png";
 }
 
-function fast() {
-	game = true
-	if(game = false){
-		width = 0;
-		width_2 = 0;
+function giveFood(){ // Feed the cat
+  document.getElementById("cat").src = "images/kitty_hungry.png";
+  setTimeout(normalCat, 1500);
+	if(food <= 100 && food >= 0 && water >= 0){
+		food = food + 10;
+  }
+}
+
+function giveWater(){ // Water the cat
+  document.getElementById("cat").src = "images/kitty_drink.png";
+  setTimeout(normalCat, 1500);
+	if(water <= 100 && water >= 0 && food >= 0){
+	  water = water + 10;
 	}
-	score_time = 1000
-	game = true
-	var myInterval_score_time = setInterval(function(){
-		 score += 1
-		document.getElementById('score').innerHTML =  'Score:' + score ;
+}
 
-}, score_time)
-	var hungerUpdate = setInterval(function (){
-		width = width - 3;
-		if(width >= 0){
-			foodBar.style.width = width  + "px";
-		}
-		else{
-			clearInterval(myInterval_food);
-			clearInterval(myInterval_score_time);
-			game = false;
+function startNewGame () {
+	game = true;
+  score = 0;
+	score_time = 1000;
+	game = true;
+}
 
-		}
-	}, 50);
+function stopGame (){
+  clearInterval(gameI);
+  /*clearInterval(hungerUpdate);
+  clearInterval(thirstUpdate);
+  clearInterval(myInterval_score_time);*/
+}
 
+function updateUI () {
+	document.getElementById('score').innerHTML =  'Score:' + score;
+}
 
-var thirdUpdate = setInterval(function (){
-  width_2 = width_2 - 3;
-  if(width_2 >= 0){
-          waterBar.style.width = width_2  + "px";
+function updateGame () {
+  score = Number(score) + 1;
+  hungerUpdate();
+  thirstUpdate();
+  updateUI();
+}
+
+function hungerUpdate () {
+  food = food - 1;
+  if(food >= 0){
+    foodBar.style.width = (3*food)  + "px";
   }
   else{
-    clearInterval(myInterval_food2);
+    clearInterval(hungerUpdate);
+    clearInterval(myInterval_score_time);
+    game = false;
+
+  }
+}
+
+function thirstUpdate () {
+  water = water - 1;
+  if(water >= 0){
+          waterBar.style.width = (3*water)  + "px";
+  }
+  else{
+    clearInterval(thirstUpdate);
     clearInterval(myInterval_score_time);
     game = false;
   }
-}, 50);
+}
 
+
+function fast() {
+  stopGame();
+  gameI = setInterval(updateGame, 50);
 }
 
 
 function slow() {
-  
-}
-
-function feed(){
-  document.getElementById("cat").src = "images/kitty_hungry.png";
-  setTimeout(normalCat, 1500);
-	if(width <= 300 && width >= 0 && width_2 >= 0){
-		width = width + 30;
-  }
-}
-function water(){
-  document.getElementById("cat").src = "images/kitty_drink.png";
-  setTimeout(normalCat, 1500);
-	if(width_2 <= 300 && width >= 0 && width_2 >= 0){
-	  width_2 = width_2 + 30;
-	}
+  stopGame();
+  gameI = setInterval(updateGame, 1000);
 }
