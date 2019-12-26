@@ -1,12 +1,14 @@
+var catAlive = false; // game running
+
 var score = 0;
-var score_time = 0;
-var game = false;
 var food = 100;
 var water = 100;
-var gameI; // The game interval
+
+var gameI; // The catAlive interval
+
 
 function normalCat () { // Changes cat picture back to a normal cat
-        document.getElementById("cat").src = "images/kitty.png";
+  document.getElementById("cat").src = "images/kitty.png";
 }
 
 function giveFood(){ // Feed the cat
@@ -25,11 +27,11 @@ function giveWater(){ // Water the cat
 	}
 }
 
-function startNewGame () {
-	game = true;
+function startGame () {
+	catAlive = true;
   score = 0;
 	score_time = 1000;
-	game = true;
+	catAlive = true;
 }
 
 function stopGame (){
@@ -40,47 +42,44 @@ function stopGame (){
 }
 
 function updateUI () {
+  // Score bar
 	document.getElementById('score').innerHTML =  'Score:' + score;
+  // Food bar
+  foodBar.style.width = (3*food)  + "px";
+  // Water bar
+  waterBar.style.width = (3*water)  + "px";
 }
 
 function updateGame () {
   score = Number(score) + 1;
+
   hungerUpdate();
   thirstUpdate();
+
+  if (food<=0 || water<=0) { 
+    // Cat is dead
+    stopGame();
+  }
+
   updateUI();
 }
 
 function hungerUpdate () {
   food = food - 1;
-  if(food >= 0){
-    foodBar.style.width = (3*food)  + "px";
-  }
-  else{
-    clearInterval(hungerUpdate);
-    clearInterval(myInterval_score_time);
-    game = false;
-
-  }
 }
 
 function thirstUpdate () {
   water = water - 1;
-  if(water >= 0){
-          waterBar.style.width = (3*water)  + "px";
-  }
-  else{
-    clearInterval(thirstUpdate);
-    clearInterval(myInterval_score_time);
-    game = false;
-  }
 }
 
+//
+// catAlive modes
+//
 
 function fast() {
   stopGame();
   gameI = setInterval(updateGame, 50);
 }
-
 
 function slow() {
   stopGame();
